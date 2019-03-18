@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
-
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 export interface FingerprintOptions {
   /**
@@ -37,7 +36,7 @@ export interface FingerprintOptions {
  *
  * @usage
  * ```typescript
- * import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
+ * import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
  *
  * constructor(private faio: FingerprintAIO) { }
  *
@@ -64,22 +63,26 @@ export interface FingerprintOptions {
   repo: 'https://github.com/NiklasMerz/cordova-plugin-fingerprint-aio',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FingerprintAIO extends IonicNativePlugin {
-
   /**
    * Check if fingerprint authentication is available
    * @return {Promise<any>} Returns a promise with result
    */
   @Cordova()
-  isAvailable(): Promise<any> { return; }
+  isAvailable(): Promise<any> {
+    return;
+  }
 
   /**
    * Show authentication dialogue
-   * @param options {FingerprintOptions} options for platform specific fingerprint API
-   * @return {Promise<any>} Returns a promise that resolves when authentication was successfull
+   * @param {FingerprintOptions} options Options for platform specific fingerprint API
+   * @return {Promise<any>} Returns a promise that resolves when authentication was successful
    */
   @Cordova()
-  show(options: FingerprintOptions): Promise<any> { return; }
-
+  show(options: FingerprintOptions): Promise<any> {
+    return;
+  }
 }

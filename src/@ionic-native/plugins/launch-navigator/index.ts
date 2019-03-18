@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 export interface PromptsOptions {
 
@@ -223,13 +223,13 @@ export interface UserPrompted {
    * Sets flag indicating user has already been prompted whether to remember their choice a preferred navigator app.
    * @param callback - function to call once operation is complete.
    */
-  set: ( callback: () => void) => void;
+  set: (callback: () => void) => void;
 
   /**
    * Clears flag which indicates if user has already been prompted whether to remember their choice a preferred navigator app.
    * @param callback - function to call once operation is complete.
    */
-  clear: ( callback: () => void) => void;
+  clear: (callback: () => void) => void;
 }
 
 export interface AppSelection {
@@ -246,7 +246,7 @@ export interface AppSelection {
  * Please refer to the plugin's repo for detailed usage. This docs page only explains the Native wrapper.
  *
  * ```typescript
- * import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+ * import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
  *
  * constructor(private launchNavigator: LaunchNavigator) { }
  *
@@ -255,7 +255,7 @@ export interface AppSelection {
  * let options: LaunchNavigatorOptions = {
  *   start: 'London, ON',
  *   app: LaunchNavigator.APPS.UBER
- * };
+ * }
  *
  * this.launchNavigator.navigate('Toronto, ON', options)
  *   .then(
@@ -279,7 +279,9 @@ export interface AppSelection {
   repo: 'https://github.com/dpa99c/phonegap-launch-navigator',
   platforms: ['Android', 'iOS', 'Windows', 'Windows Phone 8']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LaunchNavigator extends IonicNativePlugin {
 
   APP: any = {
@@ -305,6 +307,7 @@ export class LaunchNavigator extends IonicNativePlugin {
     BICYCLING: 'bicycling',
     TRANSIT: 'transit'
   };
+  appSelection: AppSelection;
 
   /**
    * Launches navigator app
@@ -316,7 +319,9 @@ export class LaunchNavigator extends IonicNativePlugin {
     successIndex: 2,
     errorIndex: 3
   })
-  navigate(destination: string | number[], options?: LaunchNavigatorOptions): Promise<any> { return; }
+  navigate(destination: string | number[], options?: LaunchNavigatorOptions): Promise<any> {
+    return;
+  }
 
   /**
    * Determines if the given app is installed and available on the current device.
@@ -324,14 +329,18 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova()
-  isAppAvailable(app: string): Promise<any> { return; }
+  isAppAvailable(app: string): Promise<any> {
+    return;
+  }
 
   /**
    * Returns a list indicating which apps are installed and available on the current device.
    * @returns {Promise<string[]>}
    */
   @Cordova()
-  availableApps(): Promise<string[]> { return; }
+  availableApps(): Promise<string[]> {
+    return;
+  }
 
   /**
    * Returns the display name of the specified app.
@@ -339,7 +348,9 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {string}
    */
   @Cordova({ sync: true })
-  getAppDisplayName(app: string): string { return; }
+  getAppDisplayName(app: string): string {
+    return;
+  }
 
   /**
    * Returns list of supported apps on a given platform.
@@ -347,7 +358,9 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {string[]}
    */
   @Cordova({ sync: true })
-  getAppsForPlatform(platform: string): string[] { return; }
+  getAppsForPlatform(platform: string): string[] {
+    return;
+  }
 
   /**
    * Indicates if an app on a given platform supports specification of transport mode.
@@ -356,7 +369,9 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {boolean}
    */
   @Cordova({ sync: true })
-  supportsTransportMode(app: string, platform: string): boolean { return; }
+  supportsTransportMode(app: string, platform: string): boolean {
+    return;
+  }
 
   /**
    * Returns the list of transport modes supported by an app on a given platform.
@@ -365,7 +380,9 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {string[]}
    */
   @Cordova({ sync: true })
-  getTransportModes(app: string, platform: string): string[] { return; }
+  getTransportModes(app: string, platform: string): string[] {
+    return;
+  }
 
   /**
    * @param app {string}
@@ -373,7 +390,9 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {boolean}
    */
   @Cordova({ sync: true })
-  supportsDestName(app: string, platform: string): boolean { return; }
+  supportsDestName(app: string, platform: string): boolean {
+    return;
+  }
 
   /**
    * Indicates if an app on a given platform supports specification of start location.
@@ -382,7 +401,9 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {boolean}
    */
   @Cordova({ sync: true })
-  supportsStart(app: string, platform: string): boolean { return; }
+  supportsStart(app: string, platform: string): boolean {
+    return;
+  }
 
   /**
    * @param app {string}
@@ -390,7 +411,9 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {boolean}
    */
   @Cordova({ sync: true })
-  supportsStartName(app: string, platform: string): boolean { return; }
+  supportsStartName(app: string, platform: string): boolean {
+    return;
+  }
 
   /**
    * Indicates if an app on a given platform supports specification of launch mode.
@@ -400,14 +423,15 @@ export class LaunchNavigator extends IonicNativePlugin {
    * @returns {boolean}
    */
   @Cordova({ sync: true })
-  supportsLaunchMode(app: string, platform: string): boolean { return; }
+  supportsLaunchMode(app: string, platform: string): boolean {
+    return;
+  }
 
   /**
    * @param destination {string | number[]}
    * @param options {LaunchNavigatorOptions}
    */
   @Cordova({ sync: true })
-  userSelect(destination: string | number[], options: LaunchNavigatorOptions): void {}
-
-  appSelection: AppSelection;
+  userSelect(destination: string | number[], options: LaunchNavigatorOptions): void {
+  }
 }

@@ -3,7 +3,7 @@ import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 export interface CallLogObject {
   name: string;
-  value: string|Array<string>;
+  value: string | string[];
   operator: '==' | '!=' | '>' | '>=' | '<' | '<=' | 'like';
 }
 
@@ -14,7 +14,7 @@ export interface CallLogObject {
  *
  * @usage
  * ```typescript
- * import { CallLog } from '@ionic-native/call-log';
+ * import { CallLog } from '@ionic-native/call-log/ngx';
  *
  *
  * constructor(private callLog: CallLog) { }
@@ -31,11 +31,13 @@ export interface CallLogObject {
   repo: 'https://github.com/creacore-team/cordova-plugin-calllog',
   platforms: ['Android']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CallLog extends IonicNativePlugin {
   /**
    * This function return the call logs
-   * @param filters {CallLogObject[]} array of object to filter the query
+   * @param {CallLogObject[]} filters array of object to filter the query
    * @return {Promise<any>}
    */
   @Cordova()

@@ -9,7 +9,7 @@ import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
  *
  * @usage
  * ```typescript
- * import { CallNumber } from '@ionic-native/call-number';
+ * import { CallNumber } from '@ionic-native/call-number/ngx';
  *
  * constructor(private callNumber: CallNumber) { }
  *
@@ -29,12 +29,14 @@ import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
   repo: 'https://github.com/Rohfosho/CordovaCallNumberPlugin',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CallNumber extends IonicNativePlugin {
   /**
    * Calls a phone number
-   * @param numberToCall {string} The phone number to call as a string
-   * @param bypassAppChooser {boolean} Set to true to bypass the app chooser and go directly to dialer
+   * @param {string} numberToCall The phone number to call as a string
+   * @param {boolean} bypassAppChooser Set to true to bypass the app chooser and go directly to dialer
    * @return {Promise<any>}
    */
   @Cordova({
@@ -48,9 +50,7 @@ export class CallNumber extends IonicNativePlugin {
    * Check if call feature is available
    * @return {Promise<any>}
    */
-  @Cordova({
-    callbackOrder: 'reverse'
-  })
+  @Cordova()
   isCallSupported(): Promise<any> {
     return;
   }

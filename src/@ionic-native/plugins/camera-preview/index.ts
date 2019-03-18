@@ -39,6 +39,9 @@ export interface CameraPreviewOptions {
 
   /** Tap to set specific focus point. Note, this assumes the camera is full-screen. default false */
   tapToFocus?: boolean;
+
+  /** On Android disable automatic rotation of the image and stripping of Exit header. default false */
+  disableExifHeaderStripping?: boolean;
 }
 
 export interface CameraPreviewPictureOptions {
@@ -60,7 +63,7 @@ export interface CameraPreviewPictureOptions {
  *
  * @usage
  * ```typescript
- * import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
+ * import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview/ngx';
  *
  * constructor(private cameraPreview: CameraPreview) { }
  *
@@ -77,7 +80,7 @@ export interface CameraPreviewPictureOptions {
  *   previewDrag: true,
  *   toBack: true,
  *   alpha: 1
- * };
+ * }
  *
  * // start camera
  * this.cameraPreview.startCamera(cameraPreviewOpts).then(
@@ -135,7 +138,9 @@ export interface CameraPreviewPictureOptions {
     'https://github.com/cordova-plugin-camera-preview/cordova-plugin-camera-preview',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CameraPreview extends IonicNativePlugin {
   FOCUS_MODE = {
     FIXED: 'fixed',
@@ -231,7 +236,7 @@ export class CameraPreview extends IonicNativePlugin {
 
   /**
    * Take the picture (base64)
-   * @param [options] {CameraPreviewPictureOptions} size and quality of the picture to take
+   * @param {CameraPreviewPictureOptions} [options] size and quality of the picture to take
    * @return {Promise<any>}
    */
   @Cordova({
@@ -290,7 +295,7 @@ export class CameraPreview extends IonicNativePlugin {
 
   /**
    * Set the preview Size
-   * @param [dimensions] {CameraPreviewDimensions}
+   * @param {CameraPreviewDimensions} [dimensions]
    * @return {Promise<any>}
    */
   @Cordova({
@@ -312,7 +317,7 @@ export class CameraPreview extends IonicNativePlugin {
 
   /**
    * Set the focus mode
-   * @param [focusMode] {string} 'fixed', 'auto', 'continuous-picture', 'continuous-video' (iOS & Android), 'edof', 'infinity', 'macro' (Android Only)
+   * @param {string} [focusMode] 'fixed', 'auto', 'continuous-picture', 'continuous-video' (iOS & Android), 'edof', 'infinity', 'macro' (Android Only)
    * @return {Promise<any>}
    */
   @Cordova({
@@ -342,8 +347,8 @@ export class CameraPreview extends IonicNativePlugin {
   }
 
   /**
-   * Set the flashmode
-   * @param [flashMode] {string} 'off' (iOS & Android), 'on' (iOS & Android), 'auto' (iOS & Android), 'torch' (Android)
+   * Set the flash mode
+   * @param {string} [flashMode] 'off' (iOS & Android), 'on' (iOS & Android), 'auto' (iOS & Android), 'torch' (Android)
    * @return {Promise<any>}
    */
   @Cordova({
@@ -392,7 +397,7 @@ export class CameraPreview extends IonicNativePlugin {
 
   /**
    * Set exposure mode
-   * @param [lock] {string}
+   * @param {string} [lock]
    * @return {Promise<any>}
    */
   @Cordova({
@@ -414,7 +419,7 @@ export class CameraPreview extends IonicNativePlugin {
 
   /**
    * Set exposure compensation (Android)
-   * @param [exposureCompensation] {number}
+   * @param {number} [exposureCompensation]
    * @return {Promise<any>}
    */
   @Cordova({
@@ -436,8 +441,8 @@ export class CameraPreview extends IonicNativePlugin {
 
   /**
    * Set specific focus point. Note, this assumes the camera is full-screen.
-   * @param xPoint {number}
-   * @param yPoint {number}
+   * @param {number} xPoint
+   * @param {number} yPoint
    * @return {Promise<any>}
    */
   @Cordova()
@@ -447,7 +452,7 @@ export class CameraPreview extends IonicNativePlugin {
 
   /**
    * Add a listener for the back event for the preview
-   * @return {Promise<any>} if backbutton pressed
+   * @return {Promise<any>} if back button pressed
    */
   @Cordova()
   onBackButton(): Promise<any> {

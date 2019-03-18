@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 
 /**
@@ -9,7 +9,7 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
  *
  * @usage
  * ```typescript
- * import { Insomnia } from '@ionic-native/insomnia';
+ * import { Insomnia } from '@ionic-native/insomnia/ngx';
  *
  * constructor(private insomnia: Insomnia) { }
  *
@@ -36,7 +36,9 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin',
   platforms: ['Android', 'Browser', 'Firefox OS', 'iOS', 'Windows', 'Windows Phone 8']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Insomnia extends IonicNativePlugin {
 
   /**
@@ -44,13 +46,17 @@ export class Insomnia extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova()
-  keepAwake(): Promise<any> { return; }
+  keepAwake(): Promise<any> {
+    return;
+  }
 
   /**
    * Allows the application to sleep again
    * @returns {Promise<any>}
    */
   @Cordova()
-  allowSleepAgain(): Promise<any> { return; }
+  allowSleepAgain(): Promise<any> {
+    return;
+  }
 
 }

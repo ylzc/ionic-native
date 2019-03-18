@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 
 /**
@@ -8,7 +8,7 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
  *
  * @usage
  * ```typescript
- * import { NativeStorage } from '@ionic-native/native-storage';
+ * import { NativeStorage } from '@ionic-native/native-storage/ngx';
  *
  * constructor(private nativeStorage: NativeStorage) { }
  *
@@ -34,7 +34,9 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/TheCocoaProject/cordova-plugin-nativestorage',
   platforms: ['Android', 'Browser', 'iOS', 'macOS', 'Windows']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NativeStorage extends IonicNativePlugin {
   /**
    * Stores a value
@@ -43,7 +45,9 @@ export class NativeStorage extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova()
-  setItem(reference: string, value: any): Promise<any> { return; }
+  setItem(reference: string, value: any): Promise<any> {
+    return;
+  }
 
   /**
    * Gets a stored item
@@ -51,14 +55,18 @@ export class NativeStorage extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova()
-  getItem(reference: string): Promise<any> { return; }
+  getItem(reference: string): Promise<any> {
+    return;
+  }
 
   /**
    * Retrieving all keys
    * @returns {Promise<any>}
    */
   @Cordova()
-  keys(): Promise<any> { return; }
+  keys(): Promise<any> {
+    return;
+  }
 
   /**
    * Removes a single stored item
@@ -66,13 +74,17 @@ export class NativeStorage extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova()
-  remove(reference: string): Promise<any> { return; }
+  remove(reference: string): Promise<any> {
+    return;
+  }
 
   /**
    * Removes all stored values.
    * @returns {Promise<any>}
    */
   @Cordova()
-  clear(): Promise<any> { return; }
+  clear(): Promise<any> {
+    return;
+  }
 
 }

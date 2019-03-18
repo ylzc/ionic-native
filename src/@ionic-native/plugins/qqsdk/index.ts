@@ -1,4 +1,4 @@
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 import { Injectable } from '@angular/core';
 
 export interface QQShareOptions {
@@ -59,7 +59,7 @@ export interface QQShareOptions {
  *
  * @usage
  * ```typescript
- * import { QQSDK, QQShareOptions } from '@ionic-native/qqsdk';
+ * import { QQSDK, QQShareOptions } from '@ionic-native/qqsdk/ngx';
  *
  * constructor(private qq: QQSDK) { }
  *
@@ -74,17 +74,17 @@ export interface QQShareOptions {
  *   image: 'https://cordova.apache.org/static/img/cordova_bot.png',
  *   description: 'This is  Cordova QQ share description',
  *   flashUrl:  'http://stream20.qqmusic.qq.com/30577158.mp3',
- * };
+ * }
  *
  * const clientOptions: QQShareOptions = {
  *   client: this.qq.ClientType.QQ,
- * };
+ * }
  *
  * const shareTextOptions: QQShareOptions = {
  *   client: this.qq.ClientType.QQ,
  *   text: 'This is Share Text',
  *   scene: this.qq.Scene.QQ,
- * };
+ * }
  *
  * this.qq.ssoLogin(clientOptions)
  *    .then(result => {
@@ -161,7 +161,9 @@ export interface QQShareOptions {
   install: 'ionic cordova plugin add cordova-plugin-qqsdk --variable QQ_APP_ID=YOUR_QQ_APPID',
   installVariables: ['QQ_APP_ID'],
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class QQSDK extends IonicNativePlugin {
 
   /**

@@ -1,6 +1,6 @@
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
+import { Observable } from 'rxjs';
 
 /**
  * @name Appodeal
@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
  *
  * @usage
  * ```typescript
- * import { Appodeal } from '@ionic-native/appodeal';
+ * import { Appodeal } from '@ionic-native/appodeal/ngx';
  *
  * constructor(private appodeal: Appodeal) {
  *
@@ -27,7 +27,9 @@ import { Injectable } from '@angular/core';
   repo: 'https://github.com/appodeal/appodeal-cordova-plugin',
   platforms: ['iOS', 'Android']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Appodeal extends IonicNativePlugin {
   // available types of advertisements
   readonly AD_TYPES = {
@@ -361,7 +363,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onInterstitialLoaded',
-    element: document
+    element: 'document'
   })
   onInterstitialLoaded(): Observable<any> {
     return;
@@ -370,7 +372,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onInterstitialFailedToLoad',
-    element: document
+    element: 'document'
   })
   onInterstitialFailedToLoad(): Observable<any> {
     return;
@@ -379,7 +381,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onInterstitialShown',
-    element: document
+    element: 'document'
   })
   onInterstitialShown(): Observable<any> {
     return;
@@ -388,7 +390,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onInterstitialClicked',
-    element: document
+    element: 'document'
   })
   onInterstitialClicked(): Observable<any> {
     return;
@@ -397,7 +399,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onInterstitialClosed',
-    element: document
+    element: 'document'
   })
   onInterstitialClosed(): Observable<any> {
     return;
@@ -406,7 +408,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onSkippableVideoLoaded',
-    element: document
+    element: 'document'
   })
   onSkippableVideoLoaded(): Observable<any> {
     return;
@@ -415,7 +417,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onSkippableVideoFailedToLoad',
-    element: document
+    element: 'document'
   })
   onSkippableVideoFailedToLoad(): Observable<any> {
     return;
@@ -424,7 +426,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onSkippableVideoShown',
-    element: document
+    element: 'document'
   })
   onSkippableVideoShown(): Observable<any> {
     return;
@@ -433,7 +435,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onSkippableVideoFinished',
-    element: document
+    element: 'document'
   })
   onSkippableVideoFinished(): Observable<any> {
     return;
@@ -442,7 +444,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onSkippableVideoClosed',
-    element: document
+    element: 'document'
   })
   onSkippableVideoClosed(): Observable<any> {
     return;
@@ -451,7 +453,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onRewardedVideoLoaded',
-    element: document
+    element: 'document'
   })
   onRewardedVideoLoaded(): Observable<any> {
     return;
@@ -460,7 +462,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onRewardedVideoFailedToLoad',
-    element: document
+    element: 'document'
   })
   onRewardedVideoFailedToLoad(): Observable<any> {
     return;
@@ -469,7 +471,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onRewardedVideoShown',
-    element: document
+    element: 'document'
   })
   onRewardedVideoShown(): Observable<any> {
     return;
@@ -478,7 +480,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onRewardedVideoFinished',
-    element: document
+    element: 'document'
   })
   onRewardedVideoFinished(): Observable<any> {
     return;
@@ -487,7 +489,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onRewardedVideoClosed',
-    element: document
+    element: 'document'
   })
   onRewardedVideoClosed(): Observable<any> {
     return;
@@ -496,7 +498,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onNonSkippableVideoLoaded',
-    element: document
+    element: 'document'
   })
   onNonSkippableVideoLoaded(): Observable<any> {
     return;
@@ -505,7 +507,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onNonSkippableVideoFailedToLoad',
-    element: document
+    element: 'document'
   })
   onNonSkippableVideoFailedToLoad(): Observable<any> {
     return;
@@ -514,7 +516,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onNonSkippableVideoShown',
-    element: document
+    element: 'document'
   })
   onNonSkippableVideoShown(): Observable<any> {
     return;
@@ -523,7 +525,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onNonSkippableVideoFinished',
-    element: document
+    element: 'document'
   })
   onNonSkippableVideoFinished(): Observable<any> {
     return;
@@ -532,7 +534,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onNonSkippableVideoClosed',
-    element: document
+    element: 'document'
   })
   onNonSkippableVideoClosed(): Observable<any> {
     return;
@@ -541,7 +543,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onBannerClicked',
-    element: document
+    element: 'document'
   })
   onBannerClicked(): Observable<any> {
     return;
@@ -550,7 +552,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onBannerFailedToLoad',
-    element: document
+    element: 'document'
   })
   onBannerFailedToLoad(): Observable<any> {
     return;
@@ -559,7 +561,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onBannerLoaded',
-    element: document
+    element: 'document'
   })
   onBannerLoaded(): Observable<any> {
     return;
@@ -568,7 +570,7 @@ export class Appodeal extends IonicNativePlugin {
   @Cordova({
     eventObservable: true,
     event: 'onBannerShown',
-    element: document
+    element: 'document'
   })
   onBannerShown(): Observable<any> {
     return;

@@ -1,5 +1,5 @@
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
-import { Observable } from 'rxjs/Observable';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 /**
@@ -38,7 +38,7 @@ export interface BlinkUpWPSOptions {
  *
  * @usage
  * ```typescript
- * import { BlinkUp } from '@ionic-native/blinkup';
+ * import { BlinkUp } from '@ionic-native/blinkup/ngx';
  *
  * const options = <BlinkUpWifiOptions>{
  *    apiKey: 'API_KEY',
@@ -59,7 +59,9 @@ export interface BlinkUpWPSOptions {
   repo: 'https://github.com/SensorShare/cordova-plugin-blinkup',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BlinkUp extends IonicNativePlugin {
   /**
    * startBlinkUp - starts the blinkup process
@@ -70,7 +72,9 @@ export class BlinkUp extends IonicNativePlugin {
     callbackOrder: 'reverse',
     observable: true
   })
-  startBlinkUp(options: BlinkUpOptions): Observable<any> { return; }
+  startBlinkUp(options: BlinkUpOptions): Observable<any> {
+    return;
+  }
 
   /**
    * flashWifiBlinkUp - invokes the flash wifi process
@@ -81,7 +85,9 @@ export class BlinkUp extends IonicNativePlugin {
     callbackOrder: 'reverse',
     observable: true
   })
-  flashWifiBlinkUp(options: BlinkUpWifiOptions): Observable<any> { return; }
+  flashWifiBlinkUp(options: BlinkUpWifiOptions): Observable<any> {
+    return;
+  }
 
   /**
    * flashWPSBlinkUp - invokes the flash wps process
@@ -92,7 +98,9 @@ export class BlinkUp extends IonicNativePlugin {
     callbackOrder: 'reverse',
     observable: true
   })
-  flashWPSBlinkUp(options: BlinkUpWPSOptions): Observable<any> { return; }
+  flashWPSBlinkUp(options: BlinkUpWPSOptions): Observable<any> {
+    return;
+  }
 
   /**
    * abortBlinkUp - abort blinkup process
@@ -101,7 +109,9 @@ export class BlinkUp extends IonicNativePlugin {
   @Cordova({
     observable: true
   })
-  abortBlinkUp(): Observable<any> { return; }
+  abortBlinkUp(): Observable<any> {
+    return;
+  }
 
   /**
    * clearBlinkUpData - clear wifi data
@@ -110,5 +120,7 @@ export class BlinkUp extends IonicNativePlugin {
   @Cordova({
     observable: true
   })
-  clearBlinkUpData(): Observable<any> { return; }
+  clearBlinkUpData(): Observable<any> {
+    return;
+  }
 }

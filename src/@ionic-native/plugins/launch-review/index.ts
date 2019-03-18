@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 /**
  * @name Launch Review
@@ -11,7 +11,7 @@ import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
  *
  * @usage
  * ```typescript
- * import { LaunchReview } from '@ionic-native/launch-review';
+ * import { LaunchReview } from '@ionic-native/launch-review/ngx';
  *
  * constructor(private launchReview: LaunchReview) { }
  *
@@ -22,7 +22,7 @@ import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
  *
  * if(this.launchReview.isRatingSupported()){
  *   this.launchReview.rating()
- *     .then(() => console.log('Successfully launched rating dialog');
+ *     .then(() => console.log('Successfully launched rating dialog'));
  * }
  * ```
  */
@@ -33,7 +33,9 @@ import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/dpa99c/cordova-launch-review',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LaunchReview extends IonicNativePlugin {
 
   /**
@@ -45,7 +47,9 @@ export class LaunchReview extends IonicNativePlugin {
    * @returns {Promise<void>}
    */
   @Cordova({ platforms: ['Android', 'iOS'], callbackOrder: 'reverse' })
-  launch(appId?: string): Promise<void> { return; }
+  launch(appId?: string): Promise<void> {
+    return;
+  }
 
   /**
    * Invokes the native in-app rating dialog which allows a user to rate your app without needing to open the App Store.
@@ -57,7 +61,9 @@ export class LaunchReview extends IonicNativePlugin {
    * @returns {Promise<string>}
    */
   @Cordova({ platforms: ['iOS'] })
-  rating(): Promise<string> { return; }
+  rating(): Promise<string> {
+    return;
+  }
 
   /**
    * Indicates if the current platform/version supports in-app ratings dialog, i.e. calling LaunchReview.rating().
@@ -65,6 +71,8 @@ export class LaunchReview extends IonicNativePlugin {
    * @returns {boolean}
    */
   @Cordova({ platforms: ['Android', 'iOS'], sync: true })
-  isRatingSupported(): boolean { return; }
+  isRatingSupported(): boolean {
+    return;
+  }
 
 }

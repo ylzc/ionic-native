@@ -26,7 +26,7 @@ export interface AppUpdateOptions {
  * Then use the following code:
  *
  * ```typescript
- * import { AppUpdate } from '@ionic-native/app-update';
+ * import { AppUpdate } from '@ionic-native/app-update/ngx';
  *
  * constructor(private appUpdate: AppUpdate) {
  *
@@ -47,11 +47,14 @@ export interface AppUpdateOptions {
   repo: 'https://github.com/vaenow/cordova-plugin-app-update',
   platforms: ['Android']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AppUpdate extends IonicNativePlugin {
   /**
    * Check and update
-   * @param updateUrl {string} update api url
+   * @param {string} updateUrl update api url
+   * @param {AppUpdateOptions} [options] options
    * @return {Promise<any>} Returns a promise that resolves when something happens
    */
   @Cordova({

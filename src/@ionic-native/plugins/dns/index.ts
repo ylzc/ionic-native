@@ -1,4 +1,4 @@
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 import { Injectable } from '@angular/core';
 
 /**
@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
  *
  * @usage
  * ```typescript
- * import { DNS } from '@ionic-native/dns';
+ * import { DNS } from '@ionic-native/dns/ngx';
  *
  *
  * constructor(private dns: DNS) { }
@@ -28,7 +28,9 @@ import { Injectable } from '@angular/core';
   repo: 'https://bitbucket.org/zegeba/cordova-plugin-dns',
   platforms: ['Android']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DNS extends IonicNativePlugin {
   /**
    * Resolve hostnames into an underlying network address.
@@ -36,5 +38,7 @@ export class DNS extends IonicNativePlugin {
    * @returns {Promise<string>} Returns a promise that resolves with the resolution.
    */
   @Cordova()
-  resolve(hostname: string): Promise<string> { return; }
+  resolve(hostname: string): Promise<string> {
+    return;
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 
 /**
@@ -7,7 +7,7 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
  * @description This plugin displays and hides a splash screen during application launch. The methods below allows showing and hiding the splashscreen after the app has loaded.
  * @usage
  * ```typescript
- * import { SplashScreen } from '@ionic-native/splash-screen';
+ * import { SplashScreen } from '@ionic-native/splash-screen/ngx';
  *
  * constructor(private splashScreen: SplashScreen) { }
  *
@@ -25,7 +25,9 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/apache/cordova-plugin-splashscreen',
   platforms: ['Amazon Fire OS', 'Android', 'iOS', 'Windows']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SplashScreen extends IonicNativePlugin {
 
   /**
@@ -34,7 +36,8 @@ export class SplashScreen extends IonicNativePlugin {
   @Cordova({
     sync: true
   })
-  show(): void { }
+  show(): void {
+  }
 
   /**
    * Hides the splashscreen
@@ -42,6 +45,7 @@ export class SplashScreen extends IonicNativePlugin {
   @Cordova({
     sync: true
   })
-  hide(): void { }
+  hide(): void {
+  }
 
 }

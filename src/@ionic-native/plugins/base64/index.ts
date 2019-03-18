@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 /**
  * @beta
@@ -9,7 +9,7 @@ import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
  *
  * @usage
  * ```typescript
- * import { Base64 } from '@ionic-native/base64';
+ * import { Base64 } from '@ionic-native/base64/ngx';
  *
  * constructor(private base64: Base64) { }
  *
@@ -31,7 +31,9 @@ import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/hazemhagrass/phonegap-base64',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Base64 extends IonicNativePlugin {
 
   /**
@@ -40,6 +42,8 @@ export class Base64 extends IonicNativePlugin {
    * @return {Promise<string>} Returns a promise that resolves when the file is successfully encoded
    */
   @Cordova()
-  encodeFile(filePath: string): Promise<string> { return; }
+  encodeFile(filePath: string): Promise<string> {
+    return;
+  }
 
 }

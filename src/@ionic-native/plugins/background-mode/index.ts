@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
-import { Observable } from 'rxjs/Observable';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
+import { Observable } from 'rxjs';
 
 /**
  * Configurations items that can be updated.
@@ -21,9 +21,9 @@ export interface BackgroundModeConfiguration {
    */
   icon?: string;
 
- /**
-  * Set the background color of the notification circle
-  */
+  /**
+   * Set the background color of the notification circle
+   */
   color?: string;
 
   /**
@@ -31,9 +31,9 @@ export interface BackgroundModeConfiguration {
    */
   resume?: boolean;
 
- /**
-  * When set to false makes the notifications visible on lockscreen (Android 5.0+)
-  */
+  /**
+   * When set to false makes the notifications visible on lock screen (Android 5.0+)
+   */
   hidden?: boolean;
 
   /** Big text */
@@ -55,9 +55,9 @@ export interface BackgroundModeConfiguration {
  * @description
  * Cordova plugin to prevent the app from going to sleep while in background.
  * Requires Cordova plugin: cordova-plugin-background-mode. For more info about plugin, visit: https://github.com/katzer/cordova-plugin-background-mode
- *@usage
+ * @usage
  * ```typescript
- * import { BackgroundMode } from '@ionic-native/background-mode';
+ * import { BackgroundMode } from '@ionic-native/background-mode/ngx';
  *
  * constructor(private backgroundMode: BackgroundMode) { }
  *
@@ -76,7 +76,9 @@ export interface BackgroundModeConfiguration {
   repo: 'https://github.com/katzer/cordova-plugin-background-mode',
   platforms: ['AmazonFire OS', 'Android', 'Browser', 'iOS', 'Windows']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BackgroundMode extends IonicNativePlugin {
   /**
    * Enable the background mode.
@@ -122,6 +124,7 @@ export class BackgroundMode extends IonicNativePlugin {
    * Override the default title, ticker and text.
    * Available only for Android platform.
    * @param {BackgroundModeConfiguration} options List of option to configure. See table below
+   * @returns {Promise<any>}
    */
   @Cordova({
     platforms: ['Android']
@@ -133,7 +136,7 @@ export class BackgroundMode extends IonicNativePlugin {
   /**
    * Modify the displayed information.
    * Available only for Android platform.
-   * @param {BackgroundModeConfiguration} options Any options you want to update. See table below.
+   * @param {BackgroundModeConfiguration} [options] Any options you want to update. See table below.
    */
   @Cordova({
     platforms: ['Android'],
@@ -202,6 +205,7 @@ export class BackgroundMode extends IonicNativePlugin {
 
   /**
    * The method works async instead of isActive() or isEnabled().
+   * @returns {Promise<boolean>}
    */
   @Cordova({
     platforms: ['Android']

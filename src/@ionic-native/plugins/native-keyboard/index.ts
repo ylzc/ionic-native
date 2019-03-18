@@ -1,4 +1,4 @@
-import { Plugin, IonicNativePlugin, Cordova } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 import { Injectable } from '@angular/core';
 
 export interface NativeKeyboardOptions {
@@ -180,7 +180,7 @@ export interface NativeKeyboardUpdateMessengerOptions {
  *
  * @usage
  * ```
- * import { NativeKeyboard } from '@ionic-native/native-keyboard';
+ * import { NativeKeyboard } from '@ionic-native/native-keyboard/ngx';
  *
  *
  * constructor(private nativeKeyboard: NativeKeyboard) { }
@@ -202,7 +202,9 @@ export interface NativeKeyboardUpdateMessengerOptions {
   repo: 'https://github.com/EddyVerbruggen/cordova-plugin-native-keyboard',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NativeKeyboard extends IonicNativePlugin {
 
   /**
@@ -210,33 +212,41 @@ export class NativeKeyboard extends IonicNativePlugin {
    * @param options {NativeKeyboardOptions}
    */
   @Cordova({ sync: true })
-  showMessenger(options: NativeKeyboardOptions): void {}
+  showMessenger(options: NativeKeyboardOptions): void {
+  }
 
   /**
    * Hide messenger
    * @param options {NativeKeyboardOptions}
    */
   @Cordova({ sync: true })
-  hideMessenger(options: NativeKeyboardOptions): void {}
+  hideMessenger(options: NativeKeyboardOptions): void {
+  }
 
   /**
    * Programmatically pop up the keyboard again if the user dismissed it.
    * @return {Promise<any>}
    */
   @Cordova()
-  showMessengerKeyboard(): Promise<any> { return; }
+  showMessengerKeyboard(): Promise<any> {
+    return;
+  }
 
   /**
    * Programmatically hide the keyboard (but not the messenger bar)
    */
   @Cordova()
-  hideMessengerKeyboard(): Promise<any> { return; }
+  hideMessengerKeyboard(): Promise<any> {
+    return;
+  }
 
   /**
    * Manipulate the messenger while it's open. For instance if you want to update the text programmatically based on what the user typed.
    * @param options
    */
   @Cordova()
-  updateMessenger(options: NativeKeyboardUpdateMessengerOptions): Promise<any> { return; }
+  updateMessenger(options: NativeKeyboardUpdateMessengerOptions): Promise<any> {
+    return;
+  }
 
 }

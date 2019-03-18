@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
-export interface DeviceFeedbackEnabled {
+export interface DeviceFeedbackStatus {
   /** Haptic Feedback */
   haptic: boolean;
 
@@ -17,7 +17,7 @@ export interface DeviceFeedbackEnabled {
  *
  * @usage
  * ```typescript
- * import { DeviceFeedback } from '@ionic-native/device-feedback';
+ * import { DeviceFeedback } from '@ionic-native/device-feedback/ngx';
  *
  * constructor(private deviceFeedback: DeviceFeedback) { }
  *
@@ -47,7 +47,9 @@ export interface DeviceFeedbackEnabled {
   repo: 'https://github.com/VVelda/device-feedback',
   platforms: ['Android']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DeviceFeedback extends IonicNativePlugin {
   /**
    * Provide sound feedback to user, nevertheless respect user's settings and current active device profile as native feedback do.
@@ -57,7 +59,7 @@ export class DeviceFeedback extends IonicNativePlugin {
 
   /**
    * Provide vibrate feedback to user, nevertheless respect user's tactile feedback setting as native feedback do.
-   * @param type {number} Specify type of vibration feedback. 0 for long press, 1 for virtual key, or 3 for keyboard tap.
+   * @param {number} type Specify type of vibration feedback. 0 for long press, 1 for virtual key, or 3 for keyboard tap.
    */
   @Cordova({ sync: true })
   haptic(type: number): void {}
@@ -67,7 +69,7 @@ export class DeviceFeedback extends IonicNativePlugin {
    * @returns {Promise<DeviceFeedbackEnabled>}
    */
   @Cordova()
-  isFeedbackEnabled(): Promise<DeviceFeedbackEnabled> {
+  isFeedbackEnabled(): Promise<DeviceFeedbackStatus> {
     return;
   }
 }

@@ -1,6 +1,6 @@
-import { Plugin, IonicNativePlugin, Cordova } from '@ionic-native/core';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
+import { Observable } from 'rxjs';
 
 export interface QRScannerStatus {
   /**
@@ -61,10 +61,13 @@ export interface QRScannerStatus {
 /**
  * @name QR Scanner
  * @description
+ * A fast, energy efficient, highly-configurable QR code scanner for Cordova apps.
+ *
+ * Requires Cordova plugin: `cordova-plugin-qrscanner`. For more info, please see the [QR Scanner plugin docs](https://github.com/bitpay/cordova-plugin-qrscanner).
  *
  * @usage
  * ```typescript
- * import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+ * import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
  *
  *
  * constructor(private qrScanner: QRScanner) { }
@@ -85,11 +88,6 @@ export interface QRScannerStatus {
  *          this.qrScanner.hide(); // hide camera preview
  *          scanSub.unsubscribe(); // stop scanning
  *        });
- *
- *        // show camera preview
- *        this.qrScanner.show();
- *
- *        // wait for user to scan something, then the observable callback will be called
  *
  *      } else if (status.denied) {
  *        // camera permission was permanently denied
@@ -113,9 +111,10 @@ export interface QRScannerStatus {
   repo: 'https://github.com/bitpay/cordova-plugin-qrscanner',
   platforms: ['Android', 'Browser', 'iOS', 'Windows']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class QRScanner extends IonicNativePlugin {
-
   /**
    * Request permission to use QR scanner.
    * @return {Promise<QRScannerStatus>}
@@ -123,7 +122,9 @@ export class QRScanner extends IonicNativePlugin {
   @Cordova({
     callbackStyle: 'node'
   })
-  prepare(): Promise<QRScannerStatus> { return; }
+  prepare(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Call this method to enable scanning. You must then call the `show` method to make the camera preview visible.
@@ -134,21 +135,27 @@ export class QRScanner extends IonicNativePlugin {
     observable: true,
     clearFunction: 'cancelScan'
   })
-  scan(): Observable<string> { return; }
+  scan(): Observable<string> {
+    return;
+  }
 
   /**
    * Configures the native webview to have a transparent background, then sets the background of the <body> and <html> DOM elements to transparent, allowing the webview to re-render with the transparent background.
    * @returns {Promise<QRScannerStatus>}
    */
   @Cordova()
-  show(): Promise<QRScannerStatus> { return; }
+  show(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Configures the native webview to be opaque with a white background, covering the video preview.
    * @returns {Promise<QRScannerStatus>}
    */
   @Cordova()
-  hide(): Promise<QRScannerStatus> { return; }
+  hide(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Enable the device's light (for scanning in low-light environments).
@@ -157,14 +164,18 @@ export class QRScanner extends IonicNativePlugin {
   @Cordova({
     callbackStyle: 'node'
   })
-  enableLight(): Promise<QRScannerStatus> { return; }
+  enableLight(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Destroy the scanner instance.
    * @returns {Promise<QRScannerStatus>}
    */
   @Cordova()
-  destroy(): Promise<QRScannerStatus> { return; }
+  destroy(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Disable the device's light.
@@ -173,7 +184,9 @@ export class QRScanner extends IonicNativePlugin {
   @Cordova({
     callbackStyle: 'node'
   })
-  disableLight(): Promise<QRScannerStatus> { return; }
+  disableLight(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Use front camera
@@ -182,7 +195,9 @@ export class QRScanner extends IonicNativePlugin {
   @Cordova({
     callbackStyle: 'node'
   })
-  useFrontCamera(): Promise<QRScannerStatus> { return; }
+  useFrontCamera(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Use back camera
@@ -191,7 +206,9 @@ export class QRScanner extends IonicNativePlugin {
   @Cordova({
     callbackStyle: 'node'
   })
-  useBackCamera(): Promise<QRScannerStatus> { return; }
+  useBackCamera(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Set camera to be used.
@@ -201,28 +218,36 @@ export class QRScanner extends IonicNativePlugin {
   @Cordova({
     callbackStyle: 'node'
   })
-  useCamera(camera: number): Promise<QRScannerStatus> { return; }
+  useCamera(camera: number): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Pauses the video preview on the current frame and pauses scanning.
    * @return {Promise<QRScannerStatus>}
    */
   @Cordova()
-  pausePreview(): Promise<QRScannerStatus> { return; }
+  pausePreview(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Resumse the video preview and resumes scanning.
    * @return {Promise<QRScannerStatus>}
    */
   @Cordova()
-  resumePreview(): Promise<QRScannerStatus> { return; }
+  resumePreview(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Returns permission status
    * @return {Promise<QRScannerStatus>}
    */
   @Cordova()
-  getStatus(): Promise<QRScannerStatus> { return; }
+  getStatus(): Promise<QRScannerStatus> {
+    return;
+  }
 
   /**
    * Opens settings to edit app permissions.
@@ -231,5 +256,4 @@ export class QRScanner extends IonicNativePlugin {
     sync: true
   })
   openSettings(): void {}
-
 }

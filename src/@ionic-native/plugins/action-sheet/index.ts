@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 export interface ActionSheetOptions {
-
   /**
    * The labels for the buttons. Uses the index x
    */
@@ -63,7 +62,7 @@ export interface ActionSheetOptions {
  *
  * @usage
  * ```typescript
- * import { ActionSheet, ActionSheetOptions } from '@ionic-native/action-sheet';
+ * import { ActionSheet, ActionSheetOptions } from '@ionic-native/action-sheet/ngx';
  *
  * constructor(private actionSheet: ActionSheet) { }
  *
@@ -80,7 +79,7 @@ export interface ActionSheetOptions {
  *   addDestructiveButtonWithLabel: 'Delete',
  *   androidTheme: this.actionSheet.ANDROID_THEMES.THEME_HOLO_DARK,
  *   destructiveButtonLast: true
- * };
+ * }
  *
  * this.actionSheet.show(options).then((buttonIndex: number) => {
  *   console.log('Button pressed: ' + buttonIndex);
@@ -96,9 +95,10 @@ export interface ActionSheetOptions {
   repo: 'https://github.com/EddyVerbruggen/cordova-plugin-actionsheet',
   platforms: ['Android', 'Browser', 'iOS', 'Windows', 'Windows Phone 8']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ActionSheet extends IonicNativePlugin {
-
   /**
    * Convenience property to select an Android theme value
    */
@@ -118,18 +118,22 @@ export class ActionSheet extends IonicNativePlugin {
 
   /**
    * Show a native ActionSheet component. See below for options.
-   * @param options {ActionSheetOptions} Options See table below
+   * @param {ActionSheetOptions} [options] Options See table below
    * @returns {Promise<any>} Returns a Promise that resolves with the index of the
    *   button pressed (1 based, so 1, 2, 3, etc.)
    */
   @Cordova()
-  show(options?: ActionSheetOptions): Promise<number> { return; }
-
+  show(options?: ActionSheetOptions): Promise<number> {
+    return;
+  }
 
   /**
-   * Progamtically hide the native ActionSheet
+   * Programmatically hide the native ActionSheet
+   * @param  {ActionSheetOptions} [options] Options See table below
    * @returns {Promise<any>} Returns a Promise that resolves when the actionsheet is closed
    */
   @Cordova()
-  hide(options?: any): Promise<any> { return; }
+  hide(options?: ActionSheetOptions): Promise<any> {
+    return;
+  }
 }

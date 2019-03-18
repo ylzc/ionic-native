@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export interface BLEScanOptions {
   /** true if duplicate devices should be reported, false (default) if devices should only be reported once.  */
@@ -28,7 +28,7 @@ export interface BLEScanOptions {
  *
  * ```typescript
  *
- * import { BLE } from '@ionic-native/ble';
+ * import { BLE } from '@ionic-native/ble/ngx';
  *
  * constructor(private ble: BLE) { }
  *
@@ -101,7 +101,7 @@ export interface BLEScanOptions {
  * ```
  *
  * ## Advertising Data
- * Bluetooth advertising data is returned in when scanning for devices. The format format varies depending on your platform. On Android advertising data will be the raw advertising bytes. iOS does not allow access to raw advertising data, so a dictionary of data is returned.
+ * Bluetooth advertising data is returned in when scanning for devices. The format varies depending on your platform. On Android advertising data will be the raw advertising bytes. iOS does not allow access to raw advertising data, so a dictionary of data is returned.
  *
  * The advertising information for both Android and iOS appears to be a combination of advertising data and scan response data.
  *
@@ -182,7 +182,9 @@ export interface BLEScanOptions {
   repo: 'https://github.com/don/cordova-plugin-ble-central',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BLE extends IonicNativePlugin {
   /**
    * Scan and discover BLE peripherals for the specified amount of time.
@@ -232,7 +234,7 @@ export class BLE extends IonicNativePlugin {
   /**
    * Scans for BLE devices. This function operates similarly to the `startScan` function, but allows you to specify extra options (like allowing duplicate device reports).
    * @param {string[]} services  List of service UUIDs to discover, or `[]` to find all devices
-   * @param options {any}
+   * @param {BLEScanOptions} options Options
    * @returns {Observable<any>} Returns an Observable that notifies of each peripheral discovered.
    */
   @Cordova({
@@ -259,7 +261,7 @@ export class BLE extends IonicNativePlugin {
    *   BLE.stopScan().then(() => { console.log('scan stopped'); });
    * }, 5000);
    * ```
-   * @return returns a Promise.
+   * @returns {Promise<any>}
    */
   @Cordova()
   stopScan(): Promise<any> {
@@ -277,8 +279,8 @@ export class BLE extends IonicNativePlugin {
    *     console.log('disconnected');
    *   });
    * ```
-   * @param deviceId {string}  UUID or MAC address of the peripheral
-   * @return Returns an Observable that notifies of connect/disconnect.
+   * @param {string} deviceId UUID or MAC address of the peripheral
+   * @return {Observable<any>} Returns an Observable that notifies of connect/disconnect.
    */
   @Cordova({
     observable: true,
@@ -290,6 +292,80 @@ export class BLE extends IonicNativePlugin {
   }
 
   /**
+   * Establish an automatic connection to a peripheral. The phone will automatically connect to the Bluetooth peripheral
+   * whenever it is in range. The autoConnect function uses callbacks instead of observables because connect and
+   * disconnect can each be called many times as a devices connects and disconnects.
+   *
+   * On Android you can pass a MAC address directly to autoConnect. With iOS, you need to get a device id by scanning,
+   * calling ble.peripheralsWithIdentifiers, or calling ble.connectedPeripheralsWithServices.
+   *
+   * @usage
+   * ```
+   *  someFunction() {
+   *    this.ble.autoConnect(deviceId, onConnected.bind(this), onDisconnected.bind(this));
+   *  }
+   *
+   *  onConnected(peripheral) {
+   *    console.log(`Connected to ${peripheral.id}`)l
+   *  }
+   *
+   *  onDisconnected(peripheral) {
+   *    console.log(`Disconnected from ${peripheral.id}`)l
+   *  }
+   *
+   * ```
+   * @param {string} deviceId UUID or MAC address of the peripheral
+   * @param {function} connectCallback function that is called with peripheral data when the devices connects
+   * @param {function} disconnectCallback  function that is called with peripheral data when the devices disconnects
+   */
+  @Cordova({ sync: true })
+  autoConnect(deviceId: string, connectCallback: any, disconnectCallback: any) {
+    return;
+  }
+
+  /**
+   * Request MTU size.
+   * May be used to fix the Error 14 "Unlikely" on write requests with more than 20 bytes.
+   * @usage
+   * ```
+   *   BLE.requestMtu('12:34:56:78:9A:BC', 512).then(() => {
+   *     console.log('MTU Size Accepted');
+   *   }, error => {
+   *     console.log('MTU Size Failed');
+   *   });
+   * ```
+   * @param {string} deviceId UUID or MAC address of the peripheral
+   * @param {number} mtuSize The new MTU size. (23 - 517, default is usually 23. Max recommended: 512)
+   * @return {Promise<any>} Returns a Promise.
+   */
+  @Cordova()
+  requestMtu(deviceId: string, mtuSize: number): Promise<any> {
+    return;
+  }
+
+  /**
+   * Refresh Device Cache
+   * This method may fix a issue of old cached services and characteristics.
+   * NOTE Since this uses an undocumented API it's not guaranteed to work.
+   * If you choose a too low delay time (timeoutMillis) the method could fail.
+   * @usage
+   * ```
+   *   BLE.refreshDeviceCache('12:34:56:78:9A:BC', 10000).then(discoveredServices => {
+   *     console.log('The new discovered services after the clean: ', discoveredServices);
+   *   }, error => {
+   *     console.log('Refresh device cache failed.');
+   *   });
+   * ```
+   * @param {string} deviceId UUID or MAC address of the peripheral
+   * @param {number} timeoutMillis Delay in milliseconds after refresh before discovering services.
+   * @return {Promise<any>} Returns a Promise.
+   */
+  @Cordova()
+  refreshDeviceCache(deviceId: string, timeoutMillis: number): Promise<any> {
+    return;
+  }
+
+  /**
    * Disconnect from a peripheral.
    * @usage
    * ```
@@ -297,8 +373,8 @@ export class BLE extends IonicNativePlugin {
    *     console.log('Disconnected');
    *   });
    * ```
-   * @param deviceId {string}  UUID or MAC address of the peripheral
-   * @return Returns a Promise
+   * @param {string} deviceId  UUID or MAC address of the peripheral
+   * @return {Promise<any>} Returns a Promise
    */
   @Cordova()
   disconnect(deviceId: string): Promise<any> {
@@ -311,7 +387,7 @@ export class BLE extends IonicNativePlugin {
    * @param {string} deviceId  UUID or MAC address of the peripheral
    * @param {string} serviceUUID  UUID of the BLE service
    * @param {string} characteristicUUID  UUID of the BLE characteristic
-   * @return Returns a Promise
+   * @return {Promise<any>} Returns a Promise
    */
   @Cordova()
   read(
@@ -348,7 +424,7 @@ export class BLE extends IonicNativePlugin {
    * @param {string} serviceUUID  UUID of the BLE service
    * @param {string} characteristicUUID  UUID of the BLE characteristic
    * @param {ArrayBuffer} value  Data to write to the characteristic, as an ArrayBuffer.
-   * @return Returns a Promise
+   * @return {Promise<any>} Returns a Promise
    */
   @Cordova()
   write(
@@ -367,7 +443,7 @@ export class BLE extends IonicNativePlugin {
    * @param {string} serviceUUID  UUID of the BLE service
    * @param {string} characteristicUUID  UUID of the BLE characteristic
    * @param {ArrayBuffer} value  Data to write to the characteristic, as an ArrayBuffer.
-   * @return Returns a Promise
+   * @return {Promise<any>} Returns a Promise
    */
   @Cordova()
   writeWithoutResponse(
@@ -392,7 +468,7 @@ export class BLE extends IonicNativePlugin {
    * @param {string} deviceId  UUID or MAC address of the peripheral
    * @param {string} serviceUUID  UUID of the BLE service
    * @param {string} characteristicUUID  UUID of the BLE characteristic
-   * @return Returns an Observable that notifies of characteristic changes.
+   * @return {Observable<any>} Returns an Observable that notifies of characteristic changes.
    */
   @Cordova({
     observable: true,
@@ -462,7 +538,7 @@ export class BLE extends IonicNativePlugin {
    * });
    * ```
    *
-   * @return Returns an Observable that notifies when the Bluetooth is enabled or disabled on the device.
+   * @return {Observable<any>} Returns an Observable that notifies when the Bluetooth is enabled or disabled on the device.
    */
   @Cordova({
     observable: true,
@@ -508,10 +584,46 @@ export class BLE extends IonicNativePlugin {
    *
    * @param {string} deviceId  UUID or MAC address of the peripheral
    *
-   *@returns {Promise<any>}
+   * @returns {Promise<any>}
    */
   @Cordova()
   readRSSI(deviceId: string): Promise<any> {
+    return;
+  }
+
+  /**
+   * Retrieves a list of the peripherals (containing any of the specified services)
+   * currently connected to the system. The peripheral list is sent to the success callback.
+   * iOS only
+   *
+   * @param {string[]} services List of services to discover
+   * @returns {Promise<any>} Returns a promise with a list of peripheral objects
+   */
+  @Cordova()
+  connectedPeripheralsWithServices(services: string[]): Promise<any[]> {
+    return;
+  }
+
+  /**
+   * Find the connected peripherals offering the listed service UUIDs.
+   * iOS only
+   *
+   * @param {string[]} uuids List of peripheral UUIDs
+   * @returns {Promise<any>} Returns a promise with a list of peripheral objects
+   */
+  @Cordova()
+  peripheralsWithIdentifiers(uuids: string[]): Promise<any[]> {
+    return;
+  }
+
+  /**
+   * Find the bonded devices
+   * Android only
+   *
+   * @returns {Promise<any>} Returns a promise with a list of peripheral objects
+   */
+  @Cordova()
+  bondedDevices(): Promise<any[]> {
     return;
   }
 }

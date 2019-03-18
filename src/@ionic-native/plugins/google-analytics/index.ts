@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 /**
  * @name Google Analytics
@@ -11,7 +11,7 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
  * - (Android) Google Play Services SDK installed via [Android SDK Manager](https://developer.android.com/sdk/installing/adding-packages.html)
  * @usage
  * ```typescript
- * import { GoogleAnalytics } from '@ionic-native/google-analytics';
+ * import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
  *
  * constructor(private ga: GoogleAnalytics) { }
  *
@@ -20,7 +20,7 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
  * this.ga.startTrackerWithId('YOUR_TRACKER_ID')
  *    .then(() => {
  *      console.log('Google analytics is ready now');
-        this.ga.trackView('test');
+ *       this.ga.trackView('test');
  *      // Tracker is ready
  *      // You can now track pages or set additional information such as AppVersion or UserId
  *    })
@@ -36,7 +36,9 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/danwilson/google-analytics-plugin',
   platforms: ['Android', 'Browser', 'iOS', 'Windows Phone 8']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class GoogleAnalytics extends IonicNativePlugin {
   /**
    * In your 'deviceready' handler, set up your Analytics tracker.

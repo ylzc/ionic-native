@@ -125,7 +125,7 @@ export interface DatePickerOptions {
  *
  * @usage
  * ```typescript
- * import { DatePicker } from '@ionic-native/date-picker';
+ * import { DatePicker } from '@ionic-native/date-picker/ngx';
  *
  * constructor(private datePicker: DatePicker) { }
  *
@@ -152,7 +152,9 @@ export interface DatePickerOptions {
   repo: 'https://github.com/VitaliiBlagodir/cordova-plugin-datepicker',
   platforms: ['Android', 'iOS', 'Windows']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DatePicker extends IonicNativePlugin {
   /**
    * @hidden

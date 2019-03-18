@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 
 /**
@@ -10,7 +10,7 @@ import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
  *
  * @usage
  * ```typescript
- * import { Backlight } from '@ionic-native/backlight';
+ * import { Backlight } from '@ionic-native/backlight/ngx';
  *
  * constructor(private backlight: Backlight) { }
  *
@@ -31,7 +31,9 @@ import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/mebibou/cordova-plugin-backlight',
   platforms: ['Android']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Backlight extends IonicNativePlugin {
 
   /**
@@ -39,13 +41,17 @@ export class Backlight extends IonicNativePlugin {
    * @return {Promise<any>} Returns a promise that resolves when the backlight is on
    */
   @Cordova()
-  on(): Promise<any> { return; }
+  on(): Promise<any> {
+    return;
+  }
 
   /**
    * This function turns backlight off
    * @return {Promise<any>} Returns a promise that resolves when the backlight is off
    */
   @Cordova()
-  off(): Promise<any> { return; }
+  off(): Promise<any> {
+    return;
+  }
 
 }

@@ -66,7 +66,7 @@ export interface NameOrOptions {
  *
  * @usage
  * ```typescript
- * import { Calendar } from '@ionic-native/calendar';
+ * import { Calendar } from '@ionic-native/calendar/ngx';
  *
  * constructor(private calendar: Calendar) { }
  *
@@ -87,13 +87,15 @@ export interface NameOrOptions {
   repo: 'https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Calendar extends IonicNativePlugin {
   /**
    * This function checks if we have permission to read/write from/to the calendar.
    * The promise will resolve with `true` when:
    * - You're running on iOS, or
-   * - You're targetting API level lower than 23, or
+   * - You're targeting API level lower than 23, or
    * - You're using Android < 6, or
    * - You've already granted permission
    *
@@ -153,11 +155,11 @@ export class Calendar extends IonicNativePlugin {
   /**
    * Create a calendar. (iOS only)
    *
-   * @param {string | CalendarOptions} nameOrOptions  either a string name or a options object. If string, provide the calendar name. IF an object, provide a calendar name as a string and a calendar color in hex format as a string
+   * @param {string | NameOrOptions} nameOrOptions  either a string name or a options object. If string, provide the calendar name. IF an object, provide a calendar name as a string and a calendar color in hex format as a string
    * @returns {Promise<any>} Returns a Promise
    */
   @Cordova()
-  createCalendar(nameOrOptions: string | CalendarOptions): Promise<any> {
+  createCalendar(nameOrOptions: string | NameOrOptions): Promise<any> {
     return;
   }
 
@@ -184,7 +186,7 @@ export class Calendar extends IonicNativePlugin {
   }
 
   /**
-   * Returns options for a custom calender with sepcific colord
+   * Returns options for a custom calender with specific color
    *
    * @return {NameOrOptions} Returns an object with the default options
    */

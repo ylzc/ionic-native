@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Plugin, Cordova, IonicNativePlugin } from '@ionic-native/core';
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 export interface NativeTransitionOptions {
   direction?: string;
@@ -23,7 +23,7 @@ export interface NativeTransitionOptions {
  *
  * @usage
  * ```typescript
- * import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+ * import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
  *
  * constructor(private nativePageTransitions: NativePageTransitions) { }
  *
@@ -42,7 +42,7 @@ export interface NativeTransitionOptions {
  *     androiddelay: 150,
  *     fixedPixelsTop: 0,
  *     fixedPixelsBottom: 60
- *    };
+ *    }
  *
  *  this.nativePageTransitions.slide(options)
  *    .then(onSuccess)
@@ -68,7 +68,9 @@ export interface NativeTransitionOptions {
   repo: 'https://github.com/Telerik-Verified-Plugins/NativePageTransitions',
   platforms: ['Android', 'iOS', 'Windows Phone 8']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NativePageTransitions extends IonicNativePlugin {
   /**
    * Perform a slide animation
@@ -76,7 +78,9 @@ export class NativePageTransitions extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova()
-  slide(options: NativeTransitionOptions): Promise<any> { return; }
+  slide(options: NativeTransitionOptions): Promise<any> {
+    return;
+  }
 
   /**
    * Perform a flip animation
@@ -84,7 +88,9 @@ export class NativePageTransitions extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova()
-  flip(options: NativeTransitionOptions): Promise<any> { return; }
+  flip(options: NativeTransitionOptions): Promise<any> {
+    return;
+  }
 
   /**
    * Perform a fade animation
@@ -92,7 +98,9 @@ export class NativePageTransitions extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova({ platforms: ['iOS', 'Android'] })
-  fade(options: NativeTransitionOptions): Promise<any> { return; }
+  fade(options: NativeTransitionOptions): Promise<any> {
+    return;
+  }
 
 
   /**
@@ -101,8 +109,9 @@ export class NativePageTransitions extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova({ platforms: ['iOS', 'Android'] })
-  drawer(options: NativeTransitionOptions): Promise<any> { return; }
-
+  drawer(options: NativeTransitionOptions): Promise<any> {
+    return;
+  }
 
 
   /**
@@ -111,20 +120,26 @@ export class NativePageTransitions extends IonicNativePlugin {
    * @returns {Promise<any>}
    */
   @Cordova({ platforms: ['iOS'] })
-  curl(options: NativeTransitionOptions): Promise<any> { return; }
+  curl(options: NativeTransitionOptions): Promise<any> {
+    return;
+  }
 
   /**
    * Execute pending transition
    * @returns {Promise<any>}
    */
   @Cordova()
-  executePendingTransition(): Promise<any> { return; }
+  executePendingTransition(): Promise<any> {
+    return;
+  }
 
   /**
    * Cancel pending transition
    * @returns {Promise<any>}
    */
   @Cordova()
-  cancelPendingTransition(): Promise<any> { return; }
+  cancelPendingTransition(): Promise<any> {
+    return;
+  }
 
 }

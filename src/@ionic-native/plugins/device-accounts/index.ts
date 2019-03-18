@@ -19,7 +19,7 @@ export interface AndroidAccount {
  *
  * @usage
  * ```typescript
- * import { DeviceAccounts } from '@ionic-native/device-accounts';
+ * import { DeviceAccounts } from '@ionic-native/device-accounts/ngx';
  *
  * constructor(private deviceAccounts: DeviceAccounts) { }
  *
@@ -40,7 +40,9 @@ export interface AndroidAccount {
   repo: 'https://github.com/danielsogl/cordova-device-accounts',
   platforms: ['Android']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DeviceAccounts extends IonicNativePlugin {
   /**
    *  Gets all accounts registered on the Android Device
@@ -53,6 +55,7 @@ export class DeviceAccounts extends IonicNativePlugin {
 
   /**
    *  Get all accounts registered on Android device for requested type
+   * @param {string} type
    * @returns {Promise<AndroidAccount[]>}
    */
   @Cordova()

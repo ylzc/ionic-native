@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
-
+import { Cordova, IonicNativePlugin, Plugin } from '@ionic-native/core';
 
 /**
  * @name Pin Dialog
  * @description
+ * PhoneGap numeric password dialog plugin for Android and iOS.
+ *
+ * Requires Cordova plugin: `cordova-plugin-pin-dialog`. For more info, please see the [Pin Dialog plugin docs](https://github.com/Paldom/PinDialog).
+ *
+ *
  *
  * @usage
  * ```typescript
- * import { PinDialog } from '@ionic-native/pin-dialog';
+ * import { PinDialog } from '@ionic-native/pin-dialog/ngx';
  *
  *
  * constructor(private pinDialog: PinDialog) { }
@@ -31,7 +35,9 @@ import { Cordova, Plugin, IonicNativePlugin } from '@ionic-native/core';
   repo: 'https://github.com/Paldom/PinDialog',
   platforms: ['Android', 'iOS']
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PinDialog extends IonicNativePlugin {
   /**
    * Show pin dialog
@@ -44,6 +50,11 @@ export class PinDialog extends IonicNativePlugin {
     successIndex: 1,
     errorIndex: 4 // no error callback
   })
-  prompt(message: string, title: string, buttons: string[]): Promise<{ buttonIndex: number, input1: string }> { return; }
-
+  prompt(
+    message: string,
+    title: string,
+    buttons: string[]
+  ): Promise<{ buttonIndex: number; input1: string }> {
+    return;
+  }
 }
